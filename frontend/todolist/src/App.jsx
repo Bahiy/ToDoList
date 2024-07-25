@@ -4,6 +4,7 @@ import FormTask from "./components/FormTask";
 import TableHead from "./components/TableHead";
 
 function App() {
+
 	return (
 		<main className="">
 			<FormTask />
