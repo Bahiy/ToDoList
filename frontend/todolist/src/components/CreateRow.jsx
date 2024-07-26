@@ -6,7 +6,8 @@ const CreateRow = () => {
 
 	// Armazena as Tasks que foram retornadas do banco de dados
 	const [tasks, setTasks] = useState([]);
-
+	
+// Função armazena as Tasks no Estado React
 	const getTasks = async () => {
 		try {
 			const data = await FetchTasks();
@@ -16,28 +17,28 @@ const CreateRow = () => {
 		}
 	};
 
-	const deleteTask = async (task) => {
+	const deleteTask = async (id) => {
 		try {
-			await fetch(`http://localhost:3333/tasks/${task.id}`, {
+			await fetch(`http://localhost:3333/tasks/${id}`, {
 				method: 'DELETE',
 				headers: { "Content-Type": "application/json" },
 			})
+			const updateTasks = tasks.filter((taskF) => taskF.id !== id)
+			setTasks(updateTasks)
 		} catch (error) {
 			console.log('Error on DELETE task: ', error);
 		}
 
 	}
 	
-	// Responsável por chamar a função 'GetTasks' assim que o componente CreateRow aparecer na tela
 	useEffect(() => {
 		getTasks();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
 		<tbody>
-			{tasks.map((task) => (
-				<tr key={task.id}>
+			{tasks.map((task,i) => (
+				<tr key={i}>
 					<td className={style}>{task.title}</td>
 					<td className={style}>{task.created_at}</td>
 					<td className={style}>
@@ -57,7 +58,7 @@ const CreateRow = () => {
 							<span className="material-symbols-outlined">edit</span>
 						</button>
 						<button
-							onClick={()=>{deleteTask(task)}}
+							onClick={()=>{deleteTask(task.id)}}
 							className="rounded-md p-2 text-neutral-100 inline-flex items-center justify-center cursor-pointer m-1 bg-red-600"
 						>
 							<span className="material-symbols-outlined">delete</span>

@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 
 const FormTask = () => {
-	
 	const {
 		register,
 		handleSubmit,
@@ -9,16 +8,17 @@ const FormTask = () => {
 	} = useForm();
 
 	const onSubmit = async (data) => {
-		await fetch("http://localhost:3333/tasks", {
-			method: "post",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(data),
-		});
-		return console.log('teste');
-		
+		try {
+			await fetch("http://localhost:3333/tasks", {
+				method: "post",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(data),
+			});
+			console.log("Post request sucessfull");
+		} catch (error) {
+			console.log("Error on request POST:", error);
+		}
 	};
-
-	
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="flex mb-12 gap-4 w-full">
@@ -32,7 +32,6 @@ const FormTask = () => {
 				className="bg-blue-500 h-14 w-14 font-light cursor-pointer text-3xl  text-white flex items-center justify-center rounded-md "
 				type="submit"
 				formMethod="post"
-
 			>
 				+
 			</button>
