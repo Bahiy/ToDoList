@@ -4,4 +4,4 @@ const FetchTasks = async () => {
 	return tasks;
 };
 
-export default FetchTasks
+export default FetchTasks;

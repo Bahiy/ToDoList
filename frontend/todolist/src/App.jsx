@@ -1,17 +1,10 @@
 import "./app.css";
-import CreateRow from "./components/CreateRow";
-import FormTask from "./components/FormTask";
-import TableHead from "./components/TableHead";
+import TasksRows from "./components/TasksRows";
 
 function App() {
-
 	return (
 		<main className="">
-			<FormTask />
-			<table className="border-collapse w-full">
-				<TableHead/>
-				<CreateRow />
-			</table>
+			<TasksRows/>
 		</main>
 	);
 }
