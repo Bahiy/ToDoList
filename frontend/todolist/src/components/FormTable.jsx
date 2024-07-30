@@ -17,7 +17,7 @@ const FormTable = ({getTasks}) => {
 				});
 				getTasks();
 				reset();
-				console.log("Post request sucessfull");
+				console.log("Sucessfull on POST task: ", data.title);
 			} catch (error) {
 				console.log("Error on POST task:", error);
 			}
