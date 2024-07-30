@@ -1,7 +1,3 @@
-Aqui está um exemplo de README para a sua aplicação web de To-Do List:
-
----
-
 # To-Do List Application
 
 ## Descrição
