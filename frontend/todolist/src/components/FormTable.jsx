@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import api from "../js/api";
 
 const FormTable = ({getTasks}) => {
 	const {
@@ -10,14 +11,10 @@ const FormTable = ({getTasks}) => {
 
     const onSubmit = async (data) => {
 			try {
-				await fetch("http://localhost:3333/tasks", {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(data),
-				});
+				await api.post('/', data)
 				getTasks();
 				reset();
-				console.log("Sucessfull on POST task: ", data.title);
+				console.log("Sucessfull on POST task: ", data);
 			} catch (error) {
 				console.log("Error on POST task:", error);
 			}
