@@ -9,13 +9,12 @@ const TasksRows = () => {
   const [editTaskTitle, setEditTaskTitle] = useState("");
   const [editTaskStatus, setEditTaskStatus] = useState("");
 
-  const reverTask = tasks.reverse();
   const style = "px-4 py-2 border-solid border text-center";
 
   const getTasks = async () => {
     try {
       const data = (await api.get()).data;
-      console.log(data);
+      console.log(data.reverse());
       setTasks(data);
     } catch (error) {
       console.log("Error on fetching tasks:", error);
@@ -98,7 +97,7 @@ const TasksRows = () => {
           </thead>
 
           <tbody>
-            {reverTask.map((task) => (
+            {tasks.map((task) => (
               <tr key={task.id}>
                 <td className="px-2 py-3 md:px-4 md:py-5 border text-center flex justify-between items-center text-sm md:text-base">
                   {editTaskId === task.id ? (
