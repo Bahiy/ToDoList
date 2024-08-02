@@ -9,11 +9,13 @@ const TasksRows = () => {
   const [editTaskTitle, setEditTaskTitle] = useState("");
   const [editTaskStatus, setEditTaskStatus] = useState("");
 
-  const style = "px-4 py-2 border-solid border text-center";
+  const style = "px-4 py-2 mborder-solid border text-center";
 
   const getTasks = async () => {
     try {
       const data = (await api.get()).data;
+      console.log(data);
+      
       setTasks(data);
     } catch (error) {
       console.log("Error on fetching tasks:", error);
@@ -66,6 +68,16 @@ const TasksRows = () => {
     console.log(task.id);
   };
 
+  const handleVoiceClick = (textToSpeech) => {
+    if (textToSpeech) {
+      const voicesList = window.speechSynthesis.getVoices();
+      const ut = new SpeechSynthesisUtterance(textToSpeech);
+      console.log(voicesList);
+
+      ut.voice = voicesList[16];
+      window.speechSynthesis.speak(ut);
+    }
+  };
   useEffect(() => {
     getTasks();
   }, []);
@@ -86,7 +98,7 @@ const TasksRows = () => {
         <tbody>
           {tasks.map((task) => (
             <tr key={task.id}>
-              <td className={style}>
+              <td className="px-4 py-5 margin border text-center flex justify-between items-center">
                 {editTaskId === task.id ? (
                   <input
                     type="text"
@@ -97,6 +109,15 @@ const TasksRows = () => {
                 ) : (
                   task.title
                 )}
+                <button
+                  id="speech"
+                  onClick={() => {
+                    handleVoiceClick(task.title);
+                  }}
+                  className="material-symbols-outlined text-base"
+                >
+                  volume_up
+                </button>
               </td>
               <td className={style}>{task.created_at}</td>
               <td className={style}>
